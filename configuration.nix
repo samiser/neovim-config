@@ -11,6 +11,11 @@ maximal: {
       lspSignature.enable = maximal;
     };
 
+    utility = {
+      surround.enable = maximal;
+      motion.flash-nvim.enable = true;
+    };
+
     languages = {
       enableFormat = maximal;
       enableTreesitter = maximal;
@@ -25,6 +30,7 @@ maximal: {
       nix.enable = maximal;
       python.enable = maximal;
       svelte.enable = maximal;
+      zig.enable = maximal;
     };
 
     visuals = {
