@@ -26,7 +26,8 @@ maximal: {
       css.enable = maximal;
       html.enable = maximal;
       lua.enable = maximal;
-      markdown.enable = maximal;
+      # tracking https://github.com/NixOS/nixpkgs/issues/483584
+      #markdown.enable = maximal;
       nix.enable = maximal;
       python.enable = maximal;
       svelte.enable = maximal;
