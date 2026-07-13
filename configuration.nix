@@ -3,6 +3,11 @@ maximal: {
     viAlias = true;
     vimAlias = true;
 
+    options = {
+      tabstop = 2;
+      shiftwidth = 2;
+    };
+
     lsp = {
       enable = maximal;
       formatOnSave = maximal;
@@ -10,6 +15,8 @@ maximal: {
       trouble.enable = maximal;
       lspSignature.enable = maximal;
     };
+
+    ui.fastaction.setupOpts.register_ui_select = false;
 
     utility = {
       surround.enable = maximal;
@@ -23,6 +30,8 @@ maximal: {
 
       bash.enable = maximal;
       clang.enable = maximal;
+      # cpplint tests fail on python 3.14 (codecs.open DeprecationWarning)
+      clang.extraDiagnostics.enable = false;
       css.enable = maximal;
       html.enable = maximal;
       lua.enable = maximal;
@@ -48,7 +57,9 @@ maximal: {
     statusline = {
       lualine = {
         enable = maximal;
-        theme = "catppuccin";
+        # catppuccin renamed its lualine theme to `catppuccin-nvim`, which
+        # nvf's theme enum doesn't know about yet; set it via setupOpts
+        setupOpts.options.theme = "catppuccin-nvim";
       };
     };
 
