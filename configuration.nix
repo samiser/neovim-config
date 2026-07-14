@@ -16,8 +16,6 @@ maximal: {
       lspSignature.enable = maximal;
     };
 
-    ui.fastaction.setupOpts.register_ui_select = false;
-
     utility = {
       surround.enable = maximal;
       motion.flash-nvim.enable = true;
@@ -127,7 +125,10 @@ maximal: {
       noice.enable = maximal;
       colorizer.enable = maximal;
       illuminate.enable = maximal;
-      fastaction.enable = maximal;
+      fastaction = {
+        enable = maximal;
+        setupOpts.register_ui_select = false;
+      };
     };
 
     comments = {
