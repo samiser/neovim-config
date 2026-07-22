@@ -1,13 +1,21 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nvf.url = "github:notashelf/nvf";
     flake-utils.url = "github:numtide/flake-utils";
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nvf, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
+  outputs = {
+    nixpkgs,
+    nvf,
+    flake-utils,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
         pkgs = import nixpkgs {
           inherit system;
         };
@@ -15,7 +23,7 @@
         mkConfig = config:
           nvf.lib.neovimConfiguration {
             inherit pkgs;
-            modules = [ config ];
+            modules = [config];
           };
 
         maximalConfig = mkConfig (import ./configuration.nix true);
