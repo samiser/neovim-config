@@ -1,4 +1,4 @@
-maximal: {lib, ...}: {
+maximal: { lib, ... }: {
   config.vim = {
     viAlias = true;
     vimAlias = true;
@@ -146,7 +146,11 @@ maximal: {lib, ...}: {
         # stdin = false makes conform pass a temp file next to the real one
         formatters.nix_fmt = {
           command = "nix";
-          args = ["fmt" "--" "$FILENAME"];
+          args = [
+            "fmt"
+            "--"
+            "$FILENAME"
+          ];
           stdin = false;
           cwd = lib.generators.mkLuaInline ''require("conform.util").root_file({"flake.nix"})'';
           require_cwd = true;

@@ -8,27 +8,31 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nvf,
-    flake-utils,
-    ...
-  }:
+  outputs =
+    {
+      nixpkgs,
+      nvf,
+      flake-utils,
+      ...
+    }:
     flake-utils.lib.eachDefaultSystem (
-      system: let
+      system:
+      let
         pkgs = import nixpkgs {
           inherit system;
         };
 
-        mkConfig = config:
+        mkConfig =
+          config:
           nvf.lib.neovimConfiguration {
             inherit pkgs;
-            modules = [config];
+            modules = [ config ];
           };
 
         maximalConfig = mkConfig (import ./configuration.nix true);
         minimalConfig = mkConfig (import ./configuration.nix false);
-      in {
+      in
+      {
         packages = {
           default = maximalConfig.neovim;
           minimal = minimalConfig.neovim;
