@@ -33,8 +33,8 @@ maximal: { lib, ... }: {
       css.enable = maximal;
       html.enable = maximal;
       lua.enable = maximal;
-      # tracking https://github.com/NixOS/nixpkgs/issues/483584
-      #markdown.enable = maximal;
+      rust.enable = maximal;
+      markdown.enable = maximal;
       nix.enable = maximal;
       # nix formatting is configured manually below so it can follow the
       # repo's own `nix fmt` formatter when one is available
