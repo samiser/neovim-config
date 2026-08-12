@@ -1,4 +1,11 @@
-maximal: { lib, ... }: {
+maximal:
+{ lib, ... }:
+{
+  imports = [
+    (import ./nixd.nix maximal)
+    (import ./godot.nix maximal)
+  ];
+
   config.vim = {
     viAlias = true;
     vimAlias = true;
@@ -8,12 +15,34 @@ maximal: { lib, ... }: {
       shiftwidth = 2;
     };
 
+    diagnostics = {
+      enable = maximal;
+      config = {
+        virtual_text = true;
+        signs = true;
+        underline = true;
+        severity_sort = true;
+      };
+    };
+
     lsp = {
       enable = maximal;
       formatOnSave = maximal;
       lightbulb.enable = maximal;
       trouble.enable = maximal;
       lspSignature.enable = maximal;
+
+      servers = lib.mkIf maximal {
+        lua-language-server.settings.Lua = {
+          runtime.version = "LuaJIT";
+          diagnostics.globals = [ "vim" ];
+          workspace = {
+            checkThirdParty = false;
+            library = lib.generators.mkLuaInline "vim.api.nvim_get_runtime_file('', true)";
+          };
+          telemetry.enable = false;
+        };
+      };
     };
 
     utility = {
@@ -73,7 +102,26 @@ maximal: { lib, ... }: {
 
     autopairs.nvim-autopairs.enable = maximal;
 
-    autocomplete.nvim-cmp.enable = maximal;
+    autocomplete.nvim-cmp = {
+      enable = maximal;
+      sources = {
+        buffer = "[Buffer]";
+        path = "[Path]";
+      };
+      setupOpts.sources = lib.mkForce [
+        { name = "nvim_lsp"; }
+        { name = "luasnip"; }
+        { name = "path"; }
+        {
+          name = "buffer";
+          group_index = 2;
+        }
+        {
+          name = "treesitter";
+          group_index = 2;
+        }
+      ];
+    };
     snippets.luasnip.enable = maximal;
 
     filetree = {
